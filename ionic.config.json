@@ -1,0 +1,7 @@
+{
+  "name": "SpyRover2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
