@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Control del Rover</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="control-content">
+  <div class="joystick-container">
+    <div id="joystick-left" class="joystick"></div>
+    
+    <video #videoElement class="video-stream" autoplay playsinline></video>
+    <ion-fab vertical="bottom" horizontal="center">
+      <ion-fab-button [disabled]="detectionActive">
+        <ion-icon name="eye"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    
+    <div id="joystick-right" class="joystick"></div>
+  </div>
+
+  <div *ngIf="distancia" class="distance-container">
+    <ion-chip color="warning" *ngIf="distancia > 0 && distancia < 30">
+      <ion-icon name="warning"></ion-icon>
+      <ion-label>Obstáculo cercano: {{distancia}} cm</ion-label>
+    </ion-chip>
+
+    <ion-chip color="success" *ngIf="distancia >= 30 || distancia === -1">
+      <ion-icon name="checkmark-circle"></ion-icon>
+      <ion-label>
+        <span *ngIf="distancia !== -1">Distancia segura: {{distancia}} cm</span>
+        <span *ngIf="distancia === -1">Sensor no disponible</span>
+      </ion-label>
+    </ion-chip>
+  </div>
+
+  <div class="button-container">
+    <ion-button shape="round" (click)="capturePhoto()" class="capture-button" color="success">
+      Capturar Foto
+    </ion-button>
+  </div>
+</ion-content>

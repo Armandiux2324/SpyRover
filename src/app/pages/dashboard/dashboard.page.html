@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="dashboard-content">
+  <div>
+    
+  </div>
+  <div class="main-container">
+    <div>
+      <ion-label class="mode-label">Modo del rover</ion-label>
+      <ion-chip color="secondary" mode="ios" outline="true" (click)="onModeChange('manual')">
+        <ion-label>Manual</ion-label>
+      </ion-chip>
+      <ion-chip color="warning" mode="ios" outline="true" (click)="onModeChange('automatic')">
+        <ion-label>Automático</ion-label>
+      </ion-chip>
+    </div>
+  
+    <ion-button 
+      (click)="redirectToControl()" 
+      shape="round"
+      [disabled]="mode === 'automatic'">
+      <ion-icon name="game-controller-outline" class="button"></ion-icon>
+      <strong>Control del rover</strong> 
+    </ion-button>
+    <ion-button class="button" 
+      (click)="redirectToPictures()" 
+      shape="round">
+      <ion-icon name="camera"></ion-icon>
+      <strong>Capturas</strong>
+    </ion-button>
+    <ion-button class="button" 
+      (click)="redirectToHistory()" 
+      shape="round">
+      <ion-icon name="refresh"></ion-icon>
+      <strong>Historial de alertas</strong>
+    </ion-button>
+    <ion-button class="button" 
+      shape="round"
+      id="config-modal">
+      <ion-icon name="construct-outline"></ion-icon>
+      <strong>Configuración avanzada</strong>
+    </ion-button>
+  </div>
+
+  <ion-modal #modal trigger="config-modal">
+    <ng-template>
+      <ion-content>
+        <ion-toolbar>
+          <ion-title>Configuración avanzada</ion-title>
+          <ion-buttons slot="end">
+            <ion-button color="light" (click)="modal.dismiss()">
+              <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+          <ion-item>
+            <ion-label>
+              <ion-input type="text" placeholder="Contraseña actual"></ion-input>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <ion-input type="text" placeholder="Nueva contraseña"></ion-input>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <ion-button (click)="saveChanges()" expand="block" shape="round">
+                Guardar cambios
+              </ion-button>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
