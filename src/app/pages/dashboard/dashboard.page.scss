@@ -77,3 +77,21 @@
     --color: white;
   }
   
+  .status-badge {
+    margin-right: 15px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 20px;
+  }
+  
+  .main-container {
+    ion-button[disabled] {
+      opacity: 0.5;
+      filter: grayscale(1);
+    }
+  
+    ion-chip[disabled] {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
