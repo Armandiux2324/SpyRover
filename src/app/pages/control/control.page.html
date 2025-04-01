@@ -11,12 +11,7 @@
   <div class="joystick-container">
     <div id="joystick-left" class="joystick"></div>
     
-    <video #videoElement class="video-stream" autoplay playsinline></video>
-    <ion-fab vertical="bottom" horizontal="center">
-      <ion-fab-button [disabled]="detectionActive">
-        <ion-icon name="eye"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    <img [src]="videoStreamUrl" class="video-stream" />
     
     <div id="joystick-right" class="joystick"></div>
   </div>

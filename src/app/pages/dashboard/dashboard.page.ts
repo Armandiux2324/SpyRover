@@ -20,7 +20,6 @@ export class DashboardPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.setInitialMode();
     this.checkRoverStatus();
-    this.setupStatusChecker();
   }
 
   ngOnDestroy() {
@@ -29,13 +28,7 @@ export class DashboardPage implements OnInit, OnDestroy {
     }
   }
 
-  private setupStatusChecker() {
-    this.statusInterval = setInterval(() => {
-      this.checkRoverStatus();
-    }, 5000); 
-  }
-
-  private async checkRoverStatus() {
+  async checkRoverStatus() {
     try {
       await this.http.get(this.esp32BaseUrl + '/status', { responseType: 'text' }).subscribe({
         next: (res) => {
@@ -60,16 +53,17 @@ export class DashboardPage implements OnInit, OnDestroy {
     }
   }
 
-  onModeChange(mode: string) {
+  onModeChange(event: CustomEvent) {
+    const mode = event.detail.value;
     if (!this.isRoverOnline) {
       this.presentToast('Rover desconectado', 'top', 'danger');
       return;
     }
-
+  
     this.http.get(`${this.esp32BaseUrl}/set_mode?mode=${mode}`).subscribe({
       next: () => {
         this.mode = mode;
-        this.presentToast('Modo cambiado a ' + mode, 'top', 'warning');
+        this.presentToast(`Modo cambiado a ${mode}`, 'top', 'success');
       },
       error: (err) => {
         console.error('Error cambiando modo:', err);

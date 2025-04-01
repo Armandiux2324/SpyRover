@@ -29,13 +29,22 @@ export class ControlPage implements AfterViewInit, OnDestroy, OnInit {
     private router: Router,
     private http: HttpClient,
     private db: DbStorageService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
   ) {
-    ScreenOrientation.lock({ orientation: 'portrait' });
+    
   }
 
   async ngOnInit() {
     this.setupVideo();
+  }
+
+  async ionViewWillEnter() {
+    await ScreenOrientation.lock({ orientation: 'landscape' });
+  }
+
+  async ionViewWillLeave() {
+    await ScreenOrientation.unlock();
+    await ScreenOrientation.lock({ orientation: 'portrait' });
   }
 
   setupVideo() {
@@ -70,7 +79,7 @@ export class ControlPage implements AfterViewInit, OnDestroy, OnInit {
       if (!this.isDestroyed) {
         this.getDistance();
       }
-    }, 500); // Actualiza cada 500ms
+    }, 500); 
   }
 
   getDistance() {
@@ -197,7 +206,6 @@ export class ControlPage implements AfterViewInit, OnDestroy, OnInit {
 
   capturePhoto() {
     console.log('URL de la cámara:', this.videoStreamUrl);
-    // Ajusta el endpoint según corresponda; se asume que "/capture" devuelve un JPEG
     const snapshotUrl = this.esp32CamIP + '/capture';
     this.http.get(snapshotUrl, { responseType: 'blob' }).subscribe({
       next: (blob) => {
@@ -218,6 +226,10 @@ export class ControlPage implements AfterViewInit, OnDestroy, OnInit {
         this.presentToast('Error al capturar foto', 'top', 'danger');
       }
     });
+  }
+
+  async onUnrecognizedFace(){
+    this.presentToast('Persona no autorizada detectada', 'top', 'danger');
   }
 
   goToDashboard() {

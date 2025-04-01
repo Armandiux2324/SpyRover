@@ -1,97 +1,123 @@
+/* dashboard.page.scss */
 .dashboard-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #121212;
-    color: #fff;
-    height: 100%;
-  }
+  --background: #000; /* Fondo negro puro */
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ion-toolbar {
+  --background: #111; /* Barra superior más oscura */
+  --color: #fff;
   
-  .mode-toggle-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 80%;
-    text-align: center;
-    margin-bottom: 20px;
+  ion-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
   }
+}
+
+.status-badge {
+  font-size: 0.85rem;
+  padding: 6px;
+  border-radius: 20px;
+  background: #8c8c8c;
+  ion-icon {
+    font-size: 1.1rem;
+  }
+}
+
+.main-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 16px; /* Margen lateral */
+}
+
+.mode-section {
+  margin-bottom: 32px;
   
-  .mode-label {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+  .section-title {
+    font-size: 1.4rem;    /* Tamaño más grande */
+    color: #ccc;          /* Color más claro */
+    text-align: center;   /* Centrado */
+    letter-spacing: 1px;  /* Espaciado entre letras */
     display: block;
+    margin: 25px 0;       /* Margen superior e inferior aumentado */
+    position: relative;
   }
   
   ion-segment {
-    --background: #222;
-    --indicator-background: #3880ff;
-    --color-checked: #fff;
-    --color: #aaa;
-    border-radius: 25px;
-    overflow: hidden;
-    width: 100%;
+    --background: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 2px;
   }
-  
+
   ion-segment-button {
-    flex: 1;
-    --background: transparent;
-    --color: #fff;
-    font-weight: bold;
-    font-size: 14px;
-  }
-
-  .main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    margin-top: 15px;
-  }
-
-  ion-icon {
-    margin-right: 8px;
-    font-size: 1.2em;
-  }
-
-  .button{
-    font-size: 14px;
-  }
-  
-  ion-modal {
-    --height: 50%;
-    --border-radius: 16px;
-    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  }
-  
-  ion-modal::part(backdrop) {
-    background: rgba(209, 213, 219);
-    opacity: 1;
-  }
-  
-  ion-modal ion-toolbar {
-    --background: rgb(14 116 144);
-    --color: white;
-  }
-  
-  .status-badge {
-    margin-right: 15px;
-    font-weight: bold;
-    padding: 8px 12px;
-    border-radius: 20px;
-  }
-  
-  .main-container {
-    ion-button[disabled] {
-      opacity: 0.5;
-      filter: grayscale(1);
+    --color: #888;
+    --color-checked: #fff;
+    --indicator-color: transparent;
+    min-height: 40px;
+    margin: 2px;
+    
+    ion-icon {
+      font-size: 1.2rem;
+      margin-bottom: 2px;
     }
-  
-    ion-chip[disabled] {
-      opacity: 0.5;
-      pointer-events: none;
+
+    &.active-mode {
+      --background: #3b82f6;
+      --color-checked: #fff;
+      border-radius: 6px;
     }
   }
+}
+
+.actions-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  max-width: 600px;
+  margin: 0 auto;
+  
+  ion-button {
+    --border-radius: 10px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    height: 80px; /* Altura fija */
+    margin: 0;
+    
+    ion-label {
+      font-size: 0.9rem;
+      line-height: 1.3;
+      padding: 0 8px;
+    }
+    
+    ion-icon {
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+  }
+
+  /* Colores de botones más sutiles */
+  .control-btn { --background: #3b82f6; }
+  .capture-btn { --background: #10b981; }
+  .history-btn { --background: #8b5cf6; }
+  .config-btn { --background: #64748b; }
+
+  /* Efecto hover más sutil */
+  ion-button:not([disabled]) {
+    transition: transform 0.1s ease, opacity 0.2s ease;
+    &:active {
+      transform: scale(0.96);
+      opacity: 0.9;
+    }
+  }
+
+  ion-button[disabled] {
+    --background: #222;
+    --color: #555;
+  }
+}
